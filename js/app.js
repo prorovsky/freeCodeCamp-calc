@@ -27,18 +27,15 @@ $(function(){
     });
 
     function checkOperation(operation){
-        // =================== cut this shit
-        // if(operation == "+" && userInputs.length == 1 && userInput){
-        //     userInputs.push(userInput);
-        //     total = +userInputs[0] + +userInputs[1];
-        //     return;
-        // }
-        // if(operation == "-" && userInputs.length == 1 && userInput){
-        //     userInputs.push(userInput);
-        //     total = +userInputs[0] - +userInputs[1];
-        //     return;
-        // }
-        // ====================
+        if(userInput && isNaN(operation) && userInputs.length == 1){
+            userInputs.push(userInput);
+            total = eval(`${userInputs[0]} ${currentOperation} ${userInputs[1]}`);
+            currentOperation = operation;
+            userInputs.length = 0;
+            userInput = "";
+            userInputs.push(total);
+            return;
+        }
         switch(operation){
             case "+":
                 performOperation(operation);
@@ -56,27 +53,19 @@ $(function(){
                 if(userInput){
                     userInputs.push(userInput);
                 }
-                if (currentOperation && userInputs.length == 2){
+                if(currentOperation && userInputs.length == 2){
                     switch(currentOperation){
                     case "+":
-                        total = +userInputs[0] + +userInputs[1];
-                        userInputs.length = 0;
-                        userInputs.push(total);
+                        performOperationWithEqualSign(currentOperation);
                         break;
                     case "-":
-                        total = +userInputs[0] - +userInputs[1];
-                        userInputs.length = 0;
-                        userInputs.push(total);
+                        performOperationWithEqualSign(currentOperation);
                         break;
                     case "*":
-                        total = +userInputs[0] * +userInputs[1];
-                        userInputs.length = 0;
-                        userInputs.push(total);
+                        performOperationWithEqualSign(currentOperation);
                         break;
                     case "/":
-                        total = +userInputs[0] / +userInputs[1];
-                        userInputs.length = 0;
-                        userInputs.push(total);
+                        performOperationWithEqualSign(currentOperation);
                         break;
                     }
                     userInput = "";
@@ -107,6 +96,12 @@ $(function(){
                 userInputs.push(total);
             }
         }
+    }
+
+    function performOperationWithEqualSign(operation){
+        total = eval(`${userInputs[0]} ${operation} ${userInputs[1]}`);
+        userInputs.length = 0;
+        userInputs.push(total);
     }
 
 });
