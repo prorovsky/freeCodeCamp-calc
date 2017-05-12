@@ -3,7 +3,7 @@ $(function(){
     const userInputs = [];
     let userInput = "";
     let currentOperation;
-    let total;
+    let total = 0;
 
     $("#numbers").children().draggable({
         cancel: false, 
@@ -17,77 +17,96 @@ $(function(){
 
     $(".drop-area").droppable({
         drop: function(event, ui){
-            operation = ui.draggable[0].textContent;
-            switch(operation){
-                case "+":
-                    if(userInputs.length < 2){
-                        userInputs.push(userInput);
-                        currentOperation = "+";
-                        userInput = "";
-                        if(userInputs.length == 2){
-                            total = +userInputs[0] + +userInputs[1];
-                        }
-                    }
-                    break;
-                case "-":
-                    if(userInputs.length < 2){
-                        userInputs.push(userInput);
-                        currentOperation = "-";
-                        userInput = "";
-                        if(userInputs.length == 2){
-                            total = +userInputs[0] - +userInputs[1];
-                        }
-                    }
-                    break;
-                case "*":
-                    if(userInputs.length < 2){
-                        userInputs.push(userInput);
-                        currentOperation = "*";
-                        userInput = "";
-                        if(userInputs.length == 2){
-                            total = +userInputs[0] * +userInputs[1];
-                        }
-                    }
-                    break;
-                case "/":
-                    if(userInputs.length < 2){
-                        userInputs.push(userInput);
-                        currentOperation = "/";
-                        userInput = "";
-                        if(userInputs.length == 2){
-                            total = +userInputs[0] / +userInputs[1];
-                        }
-                    }
-                    break;
-                case "=":
-                    userInputs.push(userInput);
-                    switch(currentOperation){
-                        case "+":
-                            total = +userInputs[0] + +userInputs[1];
-                            break;
-                        case "-":
-                            total = +userInputs[0] - +userInputs[1];
-                            break;
-                        case "*":
-                            total = +userInputs[0] * +userInputs[1];
-                            break;
-                        case "/":
-                            total = +userInputs[0] / +userInputs[1];
-                            break;
-                    }
-                    break;
-                default:
-                    userInput += operation;
-            }
+            checkOperation(ui.draggable[0].textContent);
 
-            console.log("Total " + total);
-            console.log("Input " + userInput);
+            console.log("Current operation: " + currentOperation);
+            console.log("Total: " + total);
+            console.log("Input: " + userInput);
             console.log(userInputs);
-            // console.log(ui.draggable[0].textContent);
-            // console.log(ui.draggable[0].innerHTML);
         }
     });
 
+    function checkOperation(operation){
+        // =================== cut this shit
+        // if(operation == "+" && userInputs.length == 1 && userInput){
+        //     userInputs.push(userInput);
+        //     total = +userInputs[0] + +userInputs[1];
+        //     return;
+        // }
+        // if(operation == "-" && userInputs.length == 1 && userInput){
+        //     userInputs.push(userInput);
+        //     total = +userInputs[0] - +userInputs[1];
+        //     return;
+        // }
+        // ====================
+        switch(operation){
+            case "+":
+                performOperation(operation);
+                break;
+            case "-":
+                performOperation(operation);
+                break;
+            case "*":
+                performOperation(operation);
+                break;
+            case "/":
+                performOperation(operation);
+                break;
+            case "=":
+                if(userInput){
+                    userInputs.push(userInput);
+                }
+                if (currentOperation && userInputs.length == 2){
+                    switch(currentOperation){
+                    case "+":
+                        total = +userInputs[0] + +userInputs[1];
+                        userInputs.length = 0;
+                        userInputs.push(total);
+                        break;
+                    case "-":
+                        total = +userInputs[0] - +userInputs[1];
+                        userInputs.length = 0;
+                        userInputs.push(total);
+                        break;
+                    case "*":
+                        total = +userInputs[0] * +userInputs[1];
+                        userInputs.length = 0;
+                        userInputs.push(total);
+                        break;
+                    case "/":
+                        total = +userInputs[0] / +userInputs[1];
+                        userInputs.length = 0;
+                        userInputs.push(total);
+                        break;
+                    }
+                    userInput = "";
+                    break;
+                }
+                break; 
+            case "clear":
+                userInputs.length = 0;
+                userInput = "";
+                total = 0;
+                currentOperation = undefined;
+                break;
+            default:
+                userInput += operation;
+        }
+    }
 
+    function performOperation(operation){
+        if(userInputs.length < 2){
+            if(userInput){
+                userInputs.push(userInput);
+            }
+            currentOperation = operation;
+            userInput = "";
+            if(userInputs.length == 2){
+                total = eval(`${userInputs[0]} ${operation} ${userInputs[1]}`);
+                userInputs.length = 0;
+                userInputs.push(total);
+            }
+        }
+    }
 
 });
