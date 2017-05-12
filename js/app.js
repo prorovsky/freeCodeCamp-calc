@@ -38,14 +38,8 @@ $(function(){
         }
         switch(operation){
             case "+":
-                performOperation(operation);
-                break;
             case "-":
-                performOperation(operation);
-                break;
             case "*":
-                performOperation(operation);
-                break;
             case "/":
                 performOperation(operation);
                 break;
@@ -54,22 +48,8 @@ $(function(){
                     userInputs.push(userInput);
                 }
                 if(currentOperation && userInputs.length == 2){
-                    switch(currentOperation){
-                    case "+":
-                        performOperationWithEqualSign(currentOperation);
-                        break;
-                    case "-":
-                        performOperationWithEqualSign(currentOperation);
-                        break;
-                    case "*":
-                        performOperationWithEqualSign(currentOperation);
-                        break;
-                    case "/":
-                        performOperationWithEqualSign(currentOperation);
-                        break;
-                    }
+                    performOperationWithEqualSign(currentOperation);
                     userInput = "";
-                    break;
                 }
                 break; 
             case "clear":
