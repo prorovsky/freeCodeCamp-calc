@@ -28,6 +28,10 @@ $(function(){
 
     function checkOperation(operation){
         if(userInput && isNaN(operation) && userInputs.length == 1){
+            if(operation == "clear"){
+                resetState();
+                return;
+            }
             userInputs.push(userInput);
             total = eval(`${userInputs[0]} ${currentOperation} ${userInputs[1]}`);
             currentOperation = operation;
@@ -51,12 +55,9 @@ $(function(){
                     performOperationWithEqualSign(currentOperation);
                     userInput = "";
                 }
-                break; 
+                break;
             case "clear":
-                userInputs.length = 0;
-                userInput = "";
-                total = 0;
-                currentOperation = undefined;
+                resetState();
                 break;
             default:
                 userInput += operation;
@@ -82,6 +83,13 @@ $(function(){
         total = eval(`${userInputs[0]} ${operation} ${userInputs[1]}`);
         userInputs.length = 0;
         userInputs.push(total);
+    }
+
+    function resetState(){
+        userInputs.length = 0;
+        userInput = "";
+        total = 0;
+        currentOperation = undefined;
     }
 
 });
