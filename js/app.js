@@ -13,7 +13,6 @@ $(function(){
         cancel: false,
         helper: "clone"
     });
-    $("#total").children().draggable({cancel: false});
 
     $(".drop-area").droppable({
         drop: function(event, ui){
@@ -32,12 +31,16 @@ $(function(){
                 resetState();
                 return;
             }
+            if(operation == "."){
+                handleDecimal(operation);
+                return;
+            }
             userInputs.push(userInput);
             total = eval(`${userInputs[0]} ${currentOperation} ${userInputs[1]}`);
             currentOperation = operation;
             userInputs.length = 0;
             userInput = "";
-            userInputs.push(total);
+            userInputs.push(roundNumber(total, 3));
             return;
         }
         switch(operation){
@@ -46,6 +49,9 @@ $(function(){
             case "*":
             case "/":
                 performOperation(operation);
+                break;
+            case ".":
+                handleDecimal(operation);
                 break;
             case "=":
                 if(userInput){
@@ -90,6 +96,23 @@ $(function(){
         userInput = "";
         total = 0;
         currentOperation = undefined;
+    }
+
+    function handleDecimal(operation){
+        if(!userInput){
+            userInput = "0.";
+        } else {
+            if(userInput.includes(".")){
+                return;
+            }
+            userInput += operation;
+        }
+        return;
+    }
+
+    function roundNumber(value, decimals) {
+        const shifter = Math.pow(10, decimals);
+        return Math.round(value * shifter) / shifter;
     }
 
 });
