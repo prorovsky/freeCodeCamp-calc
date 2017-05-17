@@ -4,7 +4,7 @@ body {
 }
 
 main {
-    width: 600px;
+    max-width: 630px;
     margin: 0 auto;
 }
 
@@ -13,19 +13,35 @@ h1 {
     color: seashell;
 }
 
+.border {
+    border: 5px dashed lightslategray;
+}
+
 .drop-area {
-    width: 550px;
+    max-width: 550px;
     height: 200px;
     margin: 20px auto;
     background-color: #ccc;   
 }
 
 .display {
+    font-family: 'Baloo', cursive;
+    font-size: 30px;
+    text-align: center;
     color: seashell;
 }
 
-/*.calculator {
-    width: 600px;
-    margin: 20px auto;
-    
-}*/
+@media (min-width: 300px) and (max-width: 608px) {
+    .btn {
+        width: 10%;
+    }
+
+    .btn-group {
+        width: 100%;
+        margin-bottom: 5px;
+    }
+
+    .btn-group#operations {
+        margin-left: 15%;
+    }
+}
