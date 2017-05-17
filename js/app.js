@@ -1,9 +1,14 @@
 $(function(){
 
+    var domFirstInput = $(".first-input");
+    var domSecondInput = $(".second-input");
+    var domInputTotal = $(".total");
+    var domOperation = $(".operation");
+
     const userInputs = [];
-    let userInput = "";
-    let currentOperation;
-    let total = 0;
+    var userInput = "";
+    var currentOperation;
+    var total = 0;
 
     $("#numbers").children().draggable({
         cancel: false, 
@@ -36,10 +41,15 @@ $(function(){
                 return;
             }
             userInputs.push(userInput);
+            domSecondInput.text(userInputs[0]);
             total = eval(`${userInputs[0]} ${currentOperation} ${userInputs[1]}`);
-            currentOperation = operation;
+            domInputTotal.text(total);
+            if(operation != "="){
+                currentOperation = operation;
+            }
             userInputs.length = 0;
             userInput = "";
+            domFirstInput.text(userInput);
             userInputs.push(roundNumber(total, 3));
             return;
         }
@@ -56,10 +66,12 @@ $(function(){
             case "=":
                 if(userInput){
                     userInputs.push(userInput);
+                    domSecondInput.text(userInputs[0]);
                 }
                 if(currentOperation && userInputs.length == 2){
                     performOperationWithEqualSign(currentOperation);
                     userInput = "";
+                    domFirstInput.text(userInput);
                 }
                 break;
             case "clear":
@@ -67,6 +79,7 @@ $(function(){
                 break;
             default:
                 userInput += operation;
+                domFirstInput.text(userInput);
         }
     }
 
@@ -74,28 +87,38 @@ $(function(){
         if(userInputs.length < 2){
             if(userInput){
                 userInputs.push(userInput);
+                // domSecondInput.text(userInputs[0]);
             }
             currentOperation = operation;
+            domOperation.text(currentOperation);
             userInput = "";
             if(userInputs.length == 2){
                 total = eval(`${userInputs[0]} ${operation} ${userInputs[1]}`);
+                domInputTotal.text(total);
                 userInputs.length = 0;
                 userInputs.push(total);
+                domSecondInput.text(userInputs[0]);
             }
         }
     }
 
     function performOperationWithEqualSign(operation){
         total = eval(`${userInputs[0]} ${operation} ${userInputs[1]}`);
+        domInputTotal.text(total);
         userInputs.length = 0;
+        domSecondInput.text("");
         userInputs.push(total);
     }
 
     function resetState(){
         userInputs.length = 0;
+        domSecondInput.text("");
         userInput = "";
+        domFirstInput.text(userInput);
         total = 0;
+        domInputTotal.text("");
         currentOperation = undefined;
+        domOperation.text("");
     }
 
     function handleDecimal(operation){
@@ -106,6 +129,7 @@ $(function(){
                 return;
             }
             userInput += operation;
+            domFirstInput.text(userInput);
         }
         return;
     }

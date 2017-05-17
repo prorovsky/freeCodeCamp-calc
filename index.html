@@ -4,48 +4,58 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <link rel="stylesheet" href="./css/jquery-ui.css">
+    <link rel="stylesheet" href="./libs/jquery-ui.css">
+    <link rel="stylesheet" href="./libs/bootstrap_3_3_7/css/bootstrap.min.css">
     <link rel="stylesheet" href="./css/main.css">
     <title>JavaScript Calculator</title>
 </head>
 <body>
     
     <main>
+        <div class="page-header">
+            <h1>Drag &#38; Drop Calculator</h1>
+        </div>
         <div class="calculator">
-            <div id="numbers">
-                <button id="0">0</button>
-                <button id="1">1</button>
-                <button id="2">2</button>
-                <button id="3">3</button>
-                <button id="4">4</button>
-                <button id="5">5</button>
-                <button id="6">6</button>
-                <button id="7">7</button>
-                <button id="8">8</button>
-                <button id="9">9</button>
+            <div class="btn-group" role="group" aria-label="numbers" id="numbers">
+                <button type="button" class="btn btn-default">0</button>
+                <button type="button" class="btn btn-default">1</button>
+                <button type="button" class="btn btn-default">2</button>
+                <button type="button" class="btn btn-default">3</button>
+                <button type="button" class="btn btn-default">4</button>
+                <button type="button" class="btn btn-default">5</button>
+                <button type="button" class="btn btn-default">6</button>
+                <button type="button" class="btn btn-default">7</button>
+                <button type="button" class="btn btn-default">8</button>
+                <button type="button" class="btn btn-default">9</button>
             </div>
-            <div id="operations">
-                <button id="+">+</button>
-                <button id="-">-</button>
-                <button id="*">*</button>
-                <button id="/">/</button>
-                <button id=".">.</button>
-                <button id="=">=</button>
-                <button id="clear">clear</button>
+            <div class="btn-group" role="group" aria-label="operations" id="operations">
+                <button type="button" class="btn btn-default">+</button>
+                <button type="button" class="btn btn-default">-</button>
+                <button type="button" class="btn btn-default">*</button>
+                <button type="button" class="btn btn-default">/</button>
+                <button type="button" class="btn btn-default">.</button>
+                <button type="button" class="btn btn-default">=</button>
+                <button type="button" class="btn btn-default">clear</button>
             </div>
         </div>
 
         <div class="drop-area">
-            <p>drop stuff here</p>
+
         </div>
 
-        <div class="user-input">
-            
+        <hr>
+
+        <div class="display">
+            <p>Intput: <span class="first-input"></span></p>
+            <p>Second Input: <span class="second-input"></span></p>
+            <p>Operation: <span class="operation"></span></p>
+            <p>Total: <span class="total"></span></p>
         </div>
     </main>
 
-    <script src="./js/jquery-3.1.1.min.js"></script>
-    <script src="./js/jquery-ui.min.js"></script>
+    <script src="./libs/jquery-3.1.1.min.js"></script>
+    <script src="./libs/jquery-ui.min.js"></script>
+    <script src="./libs/bootstrap_3_3_7/js/bootstrap.min.js"></script>
     <script src="./js/app.js"></script>
 </body>
 </html>

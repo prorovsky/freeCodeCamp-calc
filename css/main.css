@@ -5,11 +5,27 @@ body {
 
 main {
     width: 600px;
-    margin: 20px auto;
+    margin: 0 auto;
+}
+
+h1 {
+    text-align: center;
+    color: seashell;
 }
 
 .drop-area {
-    background-color: #999;
-    width: 600px;
-    height: 400px;
+    width: 550px;
+    height: 200px;
+    margin: 20px auto;
+    background-color: #ccc;   
 }
+
+.display {
+    color: seashell;
+}
+
+/*.calculator {
+    width: 600px;
+    margin: 20px auto;
+    
+}*/
