@@ -23,11 +23,6 @@ $(function(){
         },
         drop: function(event, ui){
             checkOperation(ui.draggable[0].textContent);
-
-            // console.log("Current operation: " + currentOperation);
-            // console.log("Total: " + total);
-            // console.log("Input: " + userInput);
-            // console.log(userInputs);
         }
     });
 
